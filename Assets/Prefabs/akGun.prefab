@@ -95,11 +95,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunPrefab: {fileID: 8422908954290026128}
-  FireEffPrefab: {fileID: 3140308100205033799, guid: dfe3f8421772bcb4fa3cde9c1eae5087,
+  FireEffPrefab: {fileID: 4531912989381042471, guid: dacd9f0410558844399f8fdca833803e,
     type: 3}
-  BulletPrefab: {fileID: 818652407271151980, guid: 0943ad4b1f1f83443ad92b28ffd502b5,
+  BulletPrefab: {fileID: 1126927447674905731, guid: 7a348f0e7501e4f4785e8e7f40b77f03,
     type: 3}
   FirePos: {fileID: 2248160901402033458}
+  FireEffParticleSystem: {fileID: 0}
 --- !u!1 &8605282055115180333
 GameObject:
   m_ObjectHideFlags: 0

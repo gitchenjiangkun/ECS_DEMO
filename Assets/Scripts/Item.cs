@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    Gun,
+    Bullet
+}
+
 public class Item : MonoBehaviour
 {
-    public GameObject GunPrefab;
-    public Gun Gun;
-
-    private void Awake()
-    {
-        Gun = new AK47();
-    }
-
+    public ItemType ItemType;
+    
     private void Start()
     {
-        GunPrefab = Instantiate(GunPrefab, transform);
-        Gun = GunPrefab.GetComponent<Gun>();
-        Gun.Init();
     }
 
     void Update()
@@ -28,26 +25,15 @@ public class Item : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            GameObject player = other.gameObject;
-            Gun playerGun = player.GetComponent<PlayerFire>().Gun;
-            if (playerGun)
+            switch (ItemType)
             {
-                player.GetComponent<PlayerFire>().Gun = Gun;
-                Gun = playerGun;
-
-                GameObject playerGunObj = player.transform.Find("Gun").GetChild(0).gameObject;
-                GunPrefab.transform.SetParent(player.transform.Find("Gun"));
-                playerGunObj.transform.SetParent(transform);
-                GunPrefab.transform.localPosition = Vector3.zero;
-                GunPrefab.transform.rotation = new Quaternion();
-            }
-            else
-            {
-                player.GetComponent<PlayerFire>().Gun = Gun;
-                GunPrefab.transform.SetParent(player.transform.Find("Gun"));
-                GunPrefab.transform.localPosition = Vector3.zero;
-                GunPrefab.transform.rotation = new Quaternion();
-                Destroy(gameObject);
+                case ItemType.Gun:
+                    Gun gun = transform.GetChild(0).GetComponent<Gun>();
+                    other.gameObject.GetComponent<GameManager>().SetGun(gun);
+                    Destroy(gameObject);
+                    break;
+                case ItemType.Bullet:
+                    break;
             }
         }
     }

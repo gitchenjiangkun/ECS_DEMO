@@ -78,7 +78,8 @@ public class PlayerFire : MonoBehaviour
 
         gameManager.EntityManager.SetComponentData(bullet, new Translation { Value = gameManager.Gun.FirePos.position });
         gameManager.EntityManager.SetComponentData(bullet, new Rotation { Value = gameManager.Gun.FirePos.rotation });
-        gameManager.EntityManager.AddComponentData(bullet, new BulletMoveComponent { Speed = gameManager.BulletSpeed });
+        gameManager.EntityManager.AddComponentData(bullet, new BulletMoveComponent { Value = gameManager.BulletSpeed });
+        gameManager.EntityManager.AddComponentData(bullet, new BulletLiftComponent { Value = gameManager.BulletLifeTime });
     }
 
     private void SpawnBulletSpreadECS()
@@ -103,7 +104,8 @@ public class PlayerFire : MonoBehaviour
 
                 gameManager.EntityManager.SetComponentData(bullets[index], new Translation { Value = gameManager.Gun.FirePos.position });
                 gameManager.EntityManager.SetComponentData(bullets[index], new Rotation { Value = Quaternion.Euler(tempRot) });
-                gameManager.EntityManager.AddComponentData(bullets[index], new BulletMoveComponent { Speed = gameManager.BulletSpeed });
+                gameManager.EntityManager.AddComponentData(bullets[index], new BulletMoveComponent { Value = gameManager.BulletSpeed });
+                gameManager.EntityManager.AddComponentData(bullets[index], new BulletLiftComponent { Value = gameManager.BulletLifeTime });
 
                 index++;
             }

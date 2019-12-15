@@ -11,12 +11,12 @@ public class Bullet : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>();
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForce(transform.right * gameManager.BulletSpeed);
         Invoke("LiftDestroy", gameManager.BulletLifeTime);
     }
 
     private void Update()
     {
+        rigidbody.MovePosition(transform.position + transform.forward * gameManager.BulletSpeed * Time.deltaTime);
     }
 
     private void LiftDestroy()

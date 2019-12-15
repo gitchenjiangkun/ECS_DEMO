@@ -5,5 +5,5 @@ using Unity.Entities;
 
 public struct BulletMoveComponent : IComponentData
 {
-    public float Speed;
+    public float Value;
 }

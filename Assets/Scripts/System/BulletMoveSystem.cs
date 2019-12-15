@@ -6,15 +6,18 @@ using Unity.Jobs;
 using Unity.Transforms;
 using Unity.Collections;
 using Unity.Mathematics;
+using Unity.Burst;
 
 public class BulletMoveSystem : JobComponentSystem
 {
-    private EntityQuery group;//查询到特定组件的实体，将其放入这个组中
+    private EntityQuery entityQuery;
     
     protected override void OnCreate()
     {
-        group = GetEntityQuery(typeof(Translation), typeof(Rotation), ComponentType.ReadOnly<BulletMoveComponent>());
+        entityQuery = GetEntityQuery(typeof(Translation), typeof(Rotation), ComponentType.ReadOnly<BulletMoveComponent>());
     }
+
+    [BurstCompile]
     public struct BulletMoveJob : IJobChunk
     {
         public float dt;
@@ -37,7 +40,7 @@ public class BulletMoveSystem : JobComponentSystem
 
                 chunkPosition[i] = new Translation
                 {
-                    Value = position.Value + math.forward(rotation.Value) * dt * bulletMove.Speed
+                    Value = position.Value + math.forward(rotation.Value) * dt * bulletMove.Value
                 };
             }
         }
@@ -58,7 +61,7 @@ public class BulletMoveSystem : JobComponentSystem
             dt = Time.DeltaTime
         };
 
-        return job.Schedule(group, inputDeps);
+        return job.Schedule(entityQuery, inputDeps);
     }
 }
 

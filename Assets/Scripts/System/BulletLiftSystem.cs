@@ -20,7 +20,7 @@ public class BulletLiftSystem : JobComponentSystem
     {
         public float dt;
 
-        [WriteOnly]//只写
+        [WriteOnly]
         public EntityCommandBuffer.Concurrent CommandBuffer;
 
         public void Execute(Entity entity, int index, ref BulletLiftComponent bulletLift)
